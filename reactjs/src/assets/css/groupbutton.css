@@ -1,0 +1,40 @@
+.group-buttons {
+    margin: 10px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(250, 120, 120, 0.5);
+    color: rgb(233, 64, 64);
+    display: inline-block;
+    font-size: 80%;
+}
+
+.group-buttons > .button {
+    padding: 0 5px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    background-color: rgba(250, 120, 120, 0.3);
+}
+
+.group-buttons > .button:hover,
+.group-buttons > .button.active {
+    background-color: rgba(250, 120, 120, 0.5);
+}
+
+.group-buttons > .button:not(:first-child) {
+    border-right: 1px solid rgba(250, 120, 120, 0.5);
+}
+
+.group-buttons > .button:first-child {
+    padding-right: 8px;
+}
+
+.group-buttons > .button:last-child {
+    padding-left: 8px;
+}
+
+.group-buttons:not(.active) {
+    display: none;
+}

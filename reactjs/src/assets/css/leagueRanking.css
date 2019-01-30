@@ -1,0 +1,72 @@
+.leagueRanking {
+    width: 70%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: auto;
+    font-size: 10px;
+    background-color: #fff;
+}
+
+@media (max-width: 960px){
+    .leagueRanking {
+        width: 80%;
+    }
+}
+@media (max-width: 768px){
+    .leagueRanking {
+        width: 90%
+    }
+
+}
+@media (max-width: 540px){
+    .leagueRanking {
+        width: 90%
+    }
+
+}
+
+.leagueRankingSelection {
+    width: 100%;;
+    margin: 10px 0;
+    padding: 5pxgit;
+}
+
+table > tbody >  tr > td,
+ table > thead > tr > td {
+    padding: 4px 10px;
+    text-align: center;
+}
+
+.leagueRankingTable > table {
+    width: 100%;
+}
+
+.leagueRankingTable > table > thead{
+    background-color: #666666;
+    color: white;
+}
+
+.leagueRankingTable > table > tbody > tr:nth-last-child(even) {
+    border-top: 1px solid #ddd ;
+    border-bottom: 1px solid #ddd ;
+    background-color: #eee;
+    
+}
+
+.leagueRankingTable > table > thead > tr > th {
+    background-color: #f3b500;
+    color: white;
+    padding: 10px;
+}
+
+.leagueRankingTable th {
+    font-weight: normal;
+}
+
+.leagueRankingIndex{
+    width: 20px;
+    text-align: right;
+}
+
+
+

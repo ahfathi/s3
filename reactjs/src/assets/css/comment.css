@@ -1,0 +1,133 @@
+form {
+    margin: 20px;
+    z-index: -2;
+}
+
+
+form>div {
+    position: relative;
+    overflow: hidden;
+}
+
+form > div > input, form > div> textarea {
+    border: 1px solid #8b8b8b;
+    width: 70%;
+}@media (max-width: 640px) {
+    form > div > input, form > div > textarea {
+        width: 100%;
+    }
+}
+
+form>div+div {
+    margin-top: 10px;
+}
+
+
+form input,
+form textarea {
+    /* border: 2px solid gray; */
+    background: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding: 8px 12px;
+    outline: 0;
+}
+
+form input:valid,
+form textarea:valid {
+    background-color: white;
+    border-color: green;
+}
+
+form input:invalid, 
+form textarea:invalid{ 
+    background-color: white;
+    border-color: red;
+}
+
+form input:focus,
+form textarea:focus {
+    border-color: #0077ff;
+}
+
+
+form input:focus+label,
+form textarea:focus+label {
+    background: #0077ff;
+    color: white;
+    font-size: 70%;
+    padding: 1px 6px;
+    z-index: 2;
+}
+
+form label {
+    transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
+    position: absolute;
+    color: #999;
+    padding: 7px 6px;
+}
+
+form textarea {
+    display: block;
+    resize: vertical;
+}
+
+form.commentSubmit input,
+form.commentSubmit textarea {
+    padding: 12px 12px 12px 12px;
+}
+
+form.commentSubmit label {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 70%;
+}@media (max-width: 640px) {
+    form.commentSubmit label{
+        width: 100%;
+    }
+}
+
+form.commentSubmit input:focus,
+form.commentSubmit textarea:focus {
+    padding: 4px 6px 20px 6px;
+}
+
+form.commentSubmit input:focus+label,
+form.commentSubmit textarea:focus+label {
+    top: 100%;
+    margin-top: -16px;
+}
+
+.commentSendButton {
+    border: none;
+    padding: 10px;
+    width: 50%;
+    margin: auto;
+    background-color: #e6e6e6;
+    cursor: pointer;
+}
+
+.commentSendButton:hover{
+    background-color: #0077ff;
+    color: white;
+    transition-duration: 0.3s;
+}
+
+.commentSendButton:not(:hover){
+    transition-duration: 0.3s;
+}
+
+.commentSendButton:hover::before {
+    content: '\f075';
+    margin-left: 10px; 
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 600;
+}
+
+.comment-avatar {
+    margin-left: 10px;
+    width: 20px;
+}

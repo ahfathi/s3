@@ -1,0 +1,64 @@
+
+.timeline {
+    margin: 20px 0;
+    text-align: left;
+}
+
+
+.timelineBar {
+    background-color: green;
+    height: 30px;
+    width: 100%;
+    position: relative;
+
+}
+
+.ft, .st {
+    position: relative;
+    display: block
+}
+
+.ft {
+    top: 0;
+}
+
+.st {
+    bottom: 0;
+}
+
+.kickOff,
+.finalTime,
+.halfTime,
+.timelineEventsSH,
+.timelineEventsFH{
+    display: inline-block;
+    color: white;
+    position: absolute;
+}
+
+.timelineEventsFH {
+    left: 13%
+}
+
+.ft:first-child {
+    left: 13%
+}
+
+.st > span:first-child {
+    position: absolute;
+    left: 13%;
+}
+
+.kickOff {
+    left: 0;
+}
+
+.halfTime {
+    left: 50%;
+}
+
+
+.finalTime {
+    right: 0;
+    top: 0;
+}

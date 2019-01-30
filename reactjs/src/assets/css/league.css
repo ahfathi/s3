@@ -1,0 +1,173 @@
+.leagueContainer {
+    width: 70%;
+    margin: 10px auto;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.leagueName {
+    margin: auto;
+    text-align: center;
+    background-color: darkred;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.leagueVersus {
+    direction: ltr;
+}
+
+.matchWinner {
+    font-weight: bold;
+}
+
+.matchLoser {
+    color: rgb(82, 82, 82);
+}
+
+.firstTeamLeague,
+.secondTeamLeague {
+    display: grid;
+}
+
+.firstTeamLeague {
+    grid-template-columns: 1fr 4fr 1fr
+}
+
+.secondTeamLeague {
+    grid-template-columns: 1fr 4fr 1fr;
+    direction: ltr;
+}
+
+.leagueVersus,
+.firstTeamLeague,
+.secondTeamLeague {
+    text-align: center;
+}
+
+.leagueFixture {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    padding: 10px;
+}
+
+.firstTeamName,
+.firstTeamScore,
+.secondTeamName,
+.secondTeamScore,
+.leagueVersus {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.firstTeamLogo>img,
+.secondTeamLogo>img {
+    padding: 0;
+    margin: 0;
+    max-width: 42px;
+    max-height: 42px;
+    width: auto;
+    height: auto;
+}
+
+.fixtureNews {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.fixtureNewsTitle {
+    margin-top: -10px;
+    padding: 10px;
+    background-color: rgb(236, 236, 236);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.fixtureNewsImage>img {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.leagueRelatedNewsContainer {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color:rgb(240, 240, 240);
+    border-bottom: 1px dotted grey;
+}
+
+.leagueRelatedNewsContainer:hover {
+    background-color: rgb(230, 230, 230);
+    transition-duration: .5s;
+}
+
+.leagueRelatedNewsContainer:not(:hover) {
+    transition-duration: .5s;
+}
+
+.leagueRelatedNewsContainer:nth-child(odd) {
+    float: right;
+    border-left: .5px solid grey;
+}
+.leagueRelatedNewsContainer:nth-child(even) {
+    float: left;
+}
+
+.firstTeamRelatedNews,
+.secondTeamRelatedNews {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr 5fr;
+}
+.relatedFirstTeamLogo > img,
+.relatedSecondTeamLogo > img {
+    max-width: 20px;
+    max-height: 20px;
+    width: auto;
+    height: auto;
+}
+
+.relatedTeamName {
+    align-content: center;
+}
+
+.relatedHighlights {
+    /* align-items: center; */
+}
+
+.relatedHighlights > button {
+    border: 1px solid blueviolet;
+    background-color: rgb(228, 198, 255);
+    padding: 5px;
+    border-radius: 10px;
+    
+}
+
+.relatedHighlights > button:hover {
+    background-color: rgb(214, 170, 255);
+    transition-duration: .5s;
+}
+
+@media (max-width: 960px) {
+    .leagueContainer {
+        width: 80%
+    }
+}
+
+@media (max-width: 768px) {
+    .leagueContainer {
+        width: 90%
+    }
+}
+
+@media (max-width: 540px) {
+    .leagueContainer {
+        width: 90%
+    }
+    .leagueRelatedNewsContainer {
+        width: 100%;
+    }
+}

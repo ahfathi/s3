@@ -1,0 +1,25 @@
+.basketballMatchContainer {
+    width: 70%;
+}
+
+.finalResultBasketball {
+    
+}
+
+@media (max-width: 960px) {
+    .basketballMatchContainer {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .basketballMatchContainer {
+        width: 90%;
+    }
+}
+
+@media (max-width: 540px) {
+    .basketballMatchContainer {
+        width: 90%;
+    }
+}

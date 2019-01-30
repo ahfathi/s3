@@ -1,0 +1,261 @@
+.footballMatchContainer {
+    width: 70%;
+    margin: 10px auto;
+}
+
+.finalResultFootball {}
+
+.matchRelatedLeague {
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    background-color: rgb(129, 129, 129);
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.matchRelatedTeams {
+    background-color: #fff;
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 2fr 3fr 2fr 1fr;
+    padding: 5px 0;
+}
+
+.matchTeamResults {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr
+}
+
+.matchFirstTeamLogo>img,
+.matchSecondTeamLogo>img {
+    max-width: 42px;
+    max-height: 42px;
+    width: auto;
+    height: auto;
+}
+
+.matchFirstTeam,
+.matchTeamResults>div,
+.matchSecondTeam {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.matchTeamsArrangement {
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    grid-column-gap: 10px;
+}
+
+
+.matchHostArrangement {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.matchHostArrangement,
+.matchGuestArrangement {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    text-align: center;
+}
+
+.matchHostArrangement div,
+.matchGuestArrangement div {
+    border-bottom: 1px solid rgb(209, 209, 209);
+}
+
+.footballMatchStatisticsTitle {
+    width: 100%;
+    text-align: center;
+    background-color: rgb(129, 129, 129);
+    color: white;
+    padding: 5px;
+
+}
+
+.footballMatchStatistics {
+    background-color: #fff;
+}
+
+.footballMatchStatistics,
+.footballMatchStatisticsTitle {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.footballMatchStats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center
+}
+
+.footballMatchStatsDetail,
+.footballMatchBallPoss {
+    padding: 10px;
+}
+
+.footballMatchStatsDetail > div {
+    border-bottom: 1px solid #edeef0;
+}
+.footballMatchBallPoss {
+    display: grid;
+    grid-template-columns: 2fr 5fr 2fr;
+    text-align: center;
+    border-right: 1px solid #edeef0
+}
+
+.footballMatchBallPoss > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footballMatchStatsDetail {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr
+}
+
+.matchDetailFirstTeamLogo {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    text-align: center;
+}
+
+.matchDetailSecondTeamLogo {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    text-align: center;
+}
+
+.footballMatchFirstTeamPoss > img,
+.footballMatchSecondTeamPoss > img,
+.matchDetailFirstTeamLogo > img,
+.matchDetailSecondTeamLogo > img {
+    max-width: 20px;
+    max-height: 20px;
+    width: auto;
+    height: auto;
+    margin: auto;
+}
+
+progress[value]{
+    align-self: center;
+    appearance: none;
+}
+
+progress[value]::-webkit-progress-bar{
+    border-radius: 10px;
+    background-color: #edeef0;
+}
+
+progress[value]::-webkit-progress-value{
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.footballMatchTimeline{
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.footballMatchTimeline > div:not(.timeline) {
+    display: flex;
+    flex-direction: row;
+}
+.footballMatchTimeline div img {
+    max-width: 20px;
+    max-height: 20px;
+    width: auto;
+    height: auto;
+}
+
+.matchSubstitutionPlayer, .matchSubstitutionMinute {
+    margin-right: 10px;
+}
+
+.matchBestPlayer::before {
+    content: '\f005';
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin: 0 10px;
+    color: orangered;
+}
+
+.matchNews, 
+.matchLiveReport,
+.matchMedia {
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+
+.matchNewsTitle,
+.matchLiveReportTitle,
+.matchMediaTitle {
+    text-align: center;
+    padding: 5px;
+    background-color: rgb(129, 129, 129);
+    color: white;    /* color: white; */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.matchNewsContainer {
+    display: grid;
+    grid-row-gap: 10px;
+    padding: 10px;
+}
+
+.matchNewsContent {
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+}
+
+.matchNewsContent > div,
+.matchLiveReportContent {
+    padding: 10px;
+    text-align: justify;
+}
+
+.matchNewsContent > img {
+    max-width: 130px;
+    max-height: 130px; 
+    width: auto;
+    height: auto;
+    margin: auto;
+}
+
+.slideshowContainer > img {
+    max-width: 100%;
+}
+
+
+
+@media (max-width: 960px) {
+    .footballMatchContainer {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .footballMatchContainer {
+        width: 90%;
+    }
+}
+
+@media (max-width: 540px) {
+    .footballMatchContainer {
+        width: 90%;
+    }
+}

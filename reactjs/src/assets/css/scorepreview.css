@@ -1,0 +1,48 @@
+.score-prev {
+    height: 100px;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.score-prev > a {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    margin: auto;
+}
+
+.score-prev > a:first-child {
+    flex-direction: row-reverse;
+}
+
+.team-name {
+    font-weight: bold;
+    padding: 10px;
+}
+
+
+.team-logo {
+    width: 40px;
+}
+
+.match-date-time {
+    text-align: center;
+    font-size: 80%;
+    line-height: 170%;
+    flex-grow: 2;
+}
+
+.match-time {
+    font-weight: bold;
+    color: rgb(160, 17, 17);
+}
+
+.team-score {
+    flex-grow: 1;
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+}

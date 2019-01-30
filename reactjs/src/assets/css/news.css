@@ -1,0 +1,150 @@
+.news-feed-container {
+    width: 70%;
+    margin: auto;
+  }
+
+  .box-container {
+    background-color: white;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.news-prev-image {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.news-title {
+    font-weight: bold;
+    font-size: 120%;
+    margin: 20px 10px;
+}
+
+.news-meta {
+    padding: 15px;
+    border-bottom: 1px solid black;
+    color: rgba(0, 0, 0, 0.5);
+    position: relative;
+    margin: 15px;
+}
+
+.news-date {
+    font-size: 80%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+}
+
+.news-date > .far {
+    margin: 0 5px;
+}
+
+.news-tags {
+    margin: 15px 40px;
+}
+
+.news-tags > a {
+    margin: 0 10px;
+    color: rgb(93, 66, 189)
+}
+
+.news-tags > a:hover {
+    color: rgb(160, 47, 150);
+    border-bottom: 1px solid rgb(160, 47, 150);
+}
+
+.news-source {
+    font-size: 80%;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+}
+
+.news-content {
+    text-align: justify;
+    margin: 40px;
+    padding: 10px 0;
+    font-size: 90%;
+}
+
+.news-content > h4 {
+    margin-bottom: 10px;
+}
+
+.news-content > p > img {
+    max-width: 100%;
+    overflow: hidden;
+    margin: 5px 0;
+}
+
+.news-content > p {
+    line-height: 170%;
+    margin: 10px 0;
+}
+
+.commentNews, .commentReaderNews {
+    width: 80%;
+    margin: auto;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.commentNewsTitle{ 
+    margin: 20px;
+}
+
+.commentReaderNews {
+    margin: 10px auto;
+}
+
+.commentReaderNews .far {
+    margin-left: 5px;
+}
+
+.commentHeader {
+    height: 30px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    direction: rtl;
+}
+
+.commentAuthor {
+    padding: 10px;
+}
+
+.commentDate {
+    text-align: left;
+    padding: 10px;
+}
+
+.commentReaderBody {
+    /* padding: 10px; */
+    direction: rtl;
+    margin: 10px;
+}
+
+hr {
+    margin-top: 5px;
+}
+
+@media (max-width: 960px){
+    .news-feed-container {
+        width: 80%;
+    }
+}
+@media (max-width: 768px){
+    .news-feed-container {
+        width: 90%;
+    }
+}
+@media (max-width: 540px){
+    .news-feed-container {
+        width: 90%;
+    }
+}

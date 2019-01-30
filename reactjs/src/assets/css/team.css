@@ -1,0 +1,152 @@
+.teamNameInformationContainer {
+    width: 70%;
+    margin: 10px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+    z-index: -4;
+}
+
+.teamNameInfo {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+}
+
+.teamLogo {
+    text-align: center;
+}
+
+.teamLogo > img{
+    max-width: 100px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+}
+
+.teamNameContainer {
+    padding: 10px;
+}
+
+.teamNameContainer > div {
+    font-size: 20px;
+}
+
+.teamFollow {
+    margin-top: 10px;
+    box-sizing: border-box;
+    border: 1px solid rgb(40, 79, 255);
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgb(100, 198, 255);
+}
+
+.teamFollow:hover {
+    background-color: rgb(0, 162, 255);
+    border-color: white;
+    color: #fff;
+    transition-duration: .3s;
+}
+
+.teamFollow:not(:hover) {
+    transition-duration: .3s;
+}
+
+.teamFixture,
+.teamPlayers {
+    padding: 10px;
+}
+
+.teamMatchPlayer {
+    margin: 10px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    background-color: white;
+}
+
+.teamPlayerContainer {
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr;
+    text-align: center;
+}
+
+.teamPlayerContainer > div {
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.teamPlayerPic > img {
+    max-width: 40px;
+    max-height: 40px;
+    width: auto;
+    height: auto;
+    align-self: center;
+}
+
+.fixtureFilter {
+    margin: auto;
+    width: 70%;
+}
+
+.fixtureFilter button {
+    border: none;
+    padding: 5px;
+    width: 100%;
+}
+
+.fixtureFilter button:hover {
+    background-color: blueviolet;
+    transition-duration: .3s;
+    color: white;
+}
+
+.fixtureFilter button:first-child {
+    border-bottom-right-radius: 5px;
+    border: 1px solid blueviolet;
+    border-top-right-radius: 5px;
+}
+
+
+
+.fixtureFilter button:last-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid blueviolet;
+}
+
+@media (max-width: 960px) {
+    .teamNameInformationContainer,
+    .fixtureFilter {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .teamNameInformationContainer,
+    .fixtureFilter {
+        width: 90%;
+    }
+
+    .teamMatchPlayer, {
+        display: grid;
+        grid-template-columns: 1fr;
+
+    }
+}
+
+@media (max-width: 540px) {
+    .teamNameInformationContainer,
+    .fixtureFilter {
+        width: 90%;
+    }
+
+    .teamMatchPlayer {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
