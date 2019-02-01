@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.forms import ModelForm, Textarea
-from .models import News, NewsTag, NewsComment
+from .models import *
 
 # Register your models here.
 
@@ -21,3 +21,9 @@ class NewsAdmin(admin.ModelAdmin):
 admin.site.register(News, NewsAdmin)
 admin.site.register(NewsTag)
 admin.site.register(NewsComment)
+admin.site.register(League)
+admin.site.register(Team)
+admin.site.register(TeamLeagueSeason)
+admin.site.register(Player)
+admin.site.register(Performance)
+admin.site.register(Game)

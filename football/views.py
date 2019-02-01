@@ -4,8 +4,9 @@ from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from .models import News, NewsComment
-from django.core.serializers.json import DjangoJSONEncoder
+from .models import News, NewsComment, Game
+from django.db.models import Q
+from django.utils import timezone
 import json
 
 
@@ -48,7 +49,7 @@ def get_news(request, id):
         'title': news.title,
         'cover': news.cover.url if news.cover else '',
         'content': news.content,
-        'date': news.date,
+        'date': news.date.strftime("%Y-%m-%d"),
         'source': news.source,
         'tags': [tag.text for tag in news.tags.all()],
         'username': '',
@@ -56,7 +57,8 @@ def get_news(request, id):
     if request.user.is_authenticated:
         result['data']['username'] = request.user.username
     
-    return JsonResponse(json.dumps(result, cls=DjangoJSONEncoder), safe=False)
+    return JsonResponse(json.dumps(result), safe=False)
+
 
 @login_required
 def comment(request):
@@ -84,4 +86,33 @@ def comment(request):
     return JsonResponse({'success': 'comment inserted'})
 
 def get_scores(request):
-    pass
+    page = int(request.GET.get('page', 1))
+    limit = int(request.GET.get('limit', 10))
+    q = request.GET.get('q', 'all')
+    if q == 'all':
+        games = Game.objects.order_by('-date')
+    elif q == 'interested':
+        if request.user.is_authenticated:
+            interested_teams = request.user.interests.all()
+            games = Game.objects.filter(Q(home_team__in=interested_teams) | Q(away_team__in=interested_teams)).order_by('-date')
+        else:
+            return JsonResponse({'error': 'please log in first'})
+    games = games[(page-1)*limit:page*limit]
+    scores = []
+    for game in games:
+        scores.append({
+            'home_team_name': game.home_team.name,
+            'away_team_name': game.away_team.name,
+            'home_team_logo': game.home_team.logo.url,
+            'away_team_logo': game.away_team.logo.url,
+            'home_team_page_url': '#',
+            'away_team_page_url': '#',
+            'home_team_goals': game.home_team_goals,
+            'away_team_goals': game.away_team_goals,
+            'is_started': True if game.date < timezone.now() else False,
+            'match_date': game.date.strftime("%Y-%m-%d"),
+            'match_time': game.date.strftime("%H:%M"),
+            'game_page_url': '#'
+        })
+        
+    return JsonResponse(json.dumps(scores), safe=False)

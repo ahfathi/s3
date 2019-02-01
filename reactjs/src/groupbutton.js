@@ -4,8 +4,9 @@ import './assets/css/groupbutton.css';
 export default class GroupButton extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
-        this.props.items.forEach((item) => {this.state[item.text] = {isActive: (item.isActive? true: false)}})
+        this.state = {
+            items: this.props.items,
+        }
         this.button_color = 'button ' + this.props.color;
         if (!this.props.type || this.props.type === 'select') {
             this.activate = this.activate.bind(this, this.select_type_activate.bind(this));
@@ -17,24 +18,30 @@ export default class GroupButton extends Component {
             this.activate = this.activate.bind(this, ()=>{})
         }
     }
-    activate(type_func, text, name) {
-        type_func(text);
+    activate(type_func, i) {
+        type_func(i);
         if (this.props.onClick) {
-            this.props.onClick(name);
+            this.props.onClick(this.state.items[i].name);
         }
     }
-    radio_type_activate(text) {
-        this.props.items.forEach((item) => {this.state[item.text] = {isActive: false}})
-        this.setState({[text]: {isActive: true}})
+    radio_type_activate(i) {
+        var items = this.state.items;
+        for (var j=0; j<items.length; j++) {
+            items[j].isActive = false;
+        }
+        items[i].isActive = true;
+        this.setState({items})
     }
-    select_type_activate(text) {
-        this.setState({[text]: {isActive: !this.state[text].isActive}});
+    select_type_activate(i) {
+        var items = this.state.items;
+        items[i].isActive = !items[i].isActive;
+        this.setState({items});
     }
     render() {
         return (
             <div className={'group-buttons' + (this.props.className ? ` ${this.props.className}`: '')}>
-                {this.props.items.map((item) => (
-                    <div key={item.text} className={this.button_color + (this.state[item.text].isActive ? ' active': '')} onClick={() => {this.activate(item.text, item.name)}} >{item.text}</div>
+                {this.state.items.map((item, id) => (
+                    <div key={id} className={this.button_color + (item.isActive ? ' active': '')} onClick={() => {this.activate(id)}} >{item.text}</div>
                 ))}
             </div>
         )

@@ -1,7 +1,6 @@
 from django.db import models
 from froala_editor.fields import FroalaField
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import Q
 from django.conf import settings
 
 import os
@@ -36,16 +35,25 @@ class NewsComment(models.Model):
     content = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.content[:16]
+
 class League(models.Model):
     name = models.CharField(max_length=32)
     logo = models.ImageField(upload_to='images/leagues/')
+
+    def __str__(self):
+        return f'[{self.pk}] {self.name}'
 
 class Team(models.Model):
     name = models.CharField(max_length=32)
     logo = models.ImageField(upload_to='images/teams/')
     is_club = models.BooleanField()
     leagues = models.ManyToManyField(League, through='TeamLeagueSeason', related_name='teams', symmetrical=False)
-    news = models.ManyToManyField(News, related_name='teams')
+    news = models.ManyToManyField(News, related_name='teams', null=True, blank=True)
+
+    def __str__(self):
+        return f'[{self.pk}] {self.name}'
 
 class TeamLeagueSeason(models.Model):
     team = models.ForeignKey(Team, related_name='league_seasons', on_delete=models.CASCADE)
@@ -71,6 +79,8 @@ class Player(models.Model):
     weight = models.IntegerField()
     image = models.ImageField(upload_to='images/players/')
 
+    def __Str__(self):
+        return f'[{self.pk}] {self.name}'
 
 class Performance(models.Model):
     player = models.ForeignKey(Player, related_name='performances', on_delete=models.CASCADE)
@@ -91,8 +101,8 @@ class Performance(models.Model):
         unique_together = (('player', 'team_league_season'),)
 
 class Game(models.Model):
-    home_team_league_season = models.ForeignKey(Team, related_name='home_games', on_delete=models.CASCADE)
-    away_team_league_season = models.ForeignKey(Team, related_name='away_games', on_delete=models.CASCADE)
+    home_team = models.ForeignKey(Team, related_name='home_games', on_delete=models.CASCADE)
+    away_team = models.ForeignKey(Team, related_name='away_games', on_delete=models.CASCADE)
     league = models.ForeignKey(League, related_name='games', on_delete=models.CASCADE)
     season = models.CharField(max_length=16)
 
@@ -106,9 +116,12 @@ class Game(models.Model):
     away_team_substitutions = models.IntegerField(default=0)
     home_team_possesion = models.IntegerField(default=50, validators=[MinValueValidator(0), MaxValueValidator(100)])
     away_team_possesion = models.IntegerField(default=50, validators=[MinValueValidator(0), MaxValueValidator(100)])
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField()
     is_finished = models.BooleanField(default=False)
-    report = models.TextField()
+    report = models.TextField(blank=True)
+
+    def __str__(self):
+        return f'[{self.pk}] [{self.date.strftime("%Y-%m-%d")}] {self.home_team.name} - {self.away_team.name}'
 
     class Meta:
-        unique_together = (('home_team_league_season', 'away_team_league_season', 'league', 'season'))
+        unique_together = (('home_team', 'away_team', 'league', 'season'))
