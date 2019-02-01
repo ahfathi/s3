@@ -8,4 +8,6 @@ urlpatterns = [
     path('news/<int:id>/', views.get_news, name='get_news'),
     path('comment/', views.comment, name='comment'),
     path('get_scores/', views.get_scores, name='get_scores'),
+    path('leagues/', views.get_leagues, name='get_leagues'),
+    path('player/', views.get_player, name="get_player"),
 ]

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Switch, Route} from 'react-router-dom';
 
 import './assets/css/team.css'
 import Scores from './scores';
@@ -85,7 +86,7 @@ class Team extends Component {
                         <button>امتیازات</button>
                     </div>
                 </div>
-                <Scores />
+                {/* <Scores /> */}
             </div>
 
 

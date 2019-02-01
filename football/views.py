@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from .models import News, NewsComment, Game
+from .models import News, NewsComment, Game, League
 from django.db.models import Q
 from django.utils import timezone
 import json
@@ -40,11 +40,11 @@ def get_news(request, id):
     except:
         return JsonResponse({'error': 'no such news'})
     else:
-        comments = NewsComment.objects.filter(news=news)
+        comments = NewsComment.objects.filter(news=news).order_by('-date_created')
 
     result = {'comments': [], 'data': {}}
     for comment in comments:
-        result['comments'].append({'nickname': comment.user.nickname, 'avatar': comment.user.avatar.url, 'date': comment.date_created, 'content': comment.content})
+        result['comments'].append({'nickname': comment.user.nickname, 'avatar': comment.user.avatar.url, 'date': comment.date_created.strftime("%Y-%m-%d"), 'content': comment.content})
     result['data'] = {
         'title': news.title,
         'cover': news.cover.url if news.cover else '',
@@ -56,6 +56,7 @@ def get_news(request, id):
     }
     if request.user.is_authenticated:
         result['data']['username'] = request.user.username
+
     
     return JsonResponse(json.dumps(result), safe=False)
 
@@ -116,3 +117,36 @@ def get_scores(request):
         })
         
     return JsonResponse(json.dumps(scores), safe=False)
+
+def get_leagues(request):
+    leagues = League.objects.all()
+    items = []
+    for league in leagues:
+        items.append({
+            'id': league.pk,
+            'name': league.name,
+            'logo': league.logo.url
+        })
+    return JsonResponse(json.dumps(items), safe=False)
+
+def get_player(request):
+    params = request.GET
+    id = params.get('id')
+    season = params.get('season')
+    league = params.get('league')
+    if league is None or id is None or season is None:
+        return JsonResponse({'error': "no league/id/season defined"})
+    player_info = Player.objects.get(pk=id)
+    player_performance = player_info.performances.filter(Q(team_league_season__league__name=league) & Q(team_league_season__season=season))
+    try:
+        return JsonResponse({
+            'name': player_info.name,
+            'age': player_info.age,
+            'height': player_info.height,
+            'weight': player_info.weight,
+            'image': player_info.image
+        })
+    except:
+        return JsonResponse({
+            'error': 'no such player'
+        })

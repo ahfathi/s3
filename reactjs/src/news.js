@@ -15,6 +15,7 @@ export default class News extends Component {
             comments: [],
             news_id: this.props.match.params.id,
         }
+        this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
     }
     componentDidMount() {
         this.fetch_csrf();

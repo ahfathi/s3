@@ -4,7 +4,7 @@ import './assets/css/comment.css';
 export default class CommentForm extends Component {
     render(){
         return (
-            <form className="commentSubmit" onSubmit={this.props.handleSubmit}>
+            <form className="commentSubmit" onSubmit={(event)=>this.props.handleSubmit(event)}>
                 <div>
                     {/* TODO: email verification */}
                     <input id="username" name="username" type="username" value={this.props.username}/>

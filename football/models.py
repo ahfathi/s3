@@ -79,7 +79,7 @@ class Player(models.Model):
     weight = models.IntegerField()
     image = models.ImageField(upload_to='images/players/')
 
-    def __Str__(self):
+    def __str__(self):
         return f'[{self.pk}] {self.name}'
 
 class Performance(models.Model):
