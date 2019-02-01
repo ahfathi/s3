@@ -21,7 +21,7 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('football.urls', namespace='football')),
+    path('api/', include('football.urls', namespace='football')),
     path('froala_editor/', include('froala_editor.urls')),
     path('auth/', include('users.urls', namespace='auth')),
 ]

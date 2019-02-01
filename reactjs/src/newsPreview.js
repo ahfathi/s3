@@ -12,7 +12,7 @@ class NewsPreview extends Component {
             <div className="newsPreviewContainer">
                 <div className="newsPreview">
                     <img className={'news-prev-image'} src={data.image} alt="football" />
-                    <div className="newsPreviewTitle"><Link to={`news/${data.id}`}>{data.title}</Link></div>
+                    <div className="newsPreviewTitle"><Link to={`/news/${data.id}`}>{data.title}</Link></div>
                     <hr/>
                     <div className="newsPreviewPreview">{data.text}</div>
                     <div className="newsPreviewFooter">

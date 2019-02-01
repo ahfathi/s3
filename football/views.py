@@ -16,30 +16,6 @@ class Index(TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
-def get_news_subnav_items(request):
-    items = [
-        {
-            'text': 'آخرین اخبار',
-            'url': '/',
-        }
-    ]
-    if request.user.is_authenticated:
-        items.append({
-            'text': 'مورد علاقه ها',
-            'url': '/interested',
-        })
-    items += [
-        {
-            'text': 'بازی ها',
-            'url': '/games',
-        },
-        {
-            'text': 'لیگ ها',
-            'url': '/leagues',
-        }
-    ]
-    return JsonResponse(json.dumps(items), safe=False)
-
 def get_news_feed(request):
     page = int(request.GET.get('page', 1))
     limit = int(request.GET.get('limit', 10))
@@ -106,3 +82,6 @@ def comment(request):
     
     NewsComment.objects.create(user=user, news=news, content=content)
     return JsonResponse({'success': 'comment inserted'})
+
+def get_scores(request):
+    pass

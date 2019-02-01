@@ -9,19 +9,31 @@ export default class NewsManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            subnav_items: [],
-            subnav_loaded: false,
+            subnav_items: [
+                {
+                    text: 'آخرین اخبار',
+                    url: '/news',
+                },
+                {
+                    text: 'مورد علاقه‌ها',
+                    url: '/news/interested',
+                },
+                {
+                    text: 'بازی‌ها',
+                    url: '/scores',
+                },
+                {
+                    text: 'لیگ‌ها',
+                    url: '/leagues',
+                }
+            ],
         }
-    }
-
-    componentDidMount() {
-        fetch((window.host + '/api/get_news_subnav_items')).then(response =>  response.json()).then((items) => {this.setState({subnav_items: JSON.parse(items), subnav_loaded:true})});
     }
 
     render() {
         return (
             <Switch>
-                <Route exact path='/' render={(props) => {
+                <Route exact path='/news' render={(props) => {
                     var subnav_items = this.state.subnav_items
                     for (var i=0; i<subnav_items.length; i++) {
                         if (subnav_items[i].url == props.match.path) {
@@ -34,12 +46,12 @@ export default class NewsManager extends Component {
                     this.state.subnav_items = subnav_items;
                     return (
                         <div class="main-container">
-                            <Subnav items={subnav_items} loaded={this.state.subnav_loaded} />
+                            <Subnav items={subnav_items} />
                             <NewsFeed {...props} interested={false}/>
                         </div>
                     )
                 }} />
-                <Route exact path='/interested' render={(props) => {
+                <Route exact path='/news/interested' render={(props) => {
                     var subnav_items = this.state.subnav_items
                     for (var i=0; i<subnav_items.length; i++) {
                         if (subnav_items[i].url == props.match.path) {
@@ -52,16 +64,15 @@ export default class NewsManager extends Component {
                     this.state.subnav_items = subnav_items;
                     return (
                         <div class="main-container">
-                            <Subnav items={subnav_items} loaded={this.state.subnav_loaded} />
+                            <Subnav items={subnav_items} />
                             <NewsFeed {...props} interested={true}/>
                         </div>
                     )
                 }} />
                 <Route exact path='/news/:id' render={(props) => {
-                    console.log('#')
                     return (
                         <div className={'main-container'}>
-                            <Subnav items={this.state.subnav_items} loaded={this.state.subnav_loaded} />
+                            <Subnav items={this.state.subnav_items} />
                             <News {...props} />
                         </div>
                     )

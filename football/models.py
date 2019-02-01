@@ -1,5 +1,7 @@
 from django.db import models
 from froala_editor.fields import FroalaField
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models import Q
 from django.conf import settings
 
 import os
@@ -21,7 +23,8 @@ class News(models.Model):
     views_count = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'[{self.id}] {self.title}'
+        return f'[{self.pk}] {self.title}'
+
 
 class NewsTag(models.Model):
     news = models.ForeignKey(News, related_name='tags', on_delete=models.CASCADE)
@@ -32,3 +35,80 @@ class NewsComment(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE)
     content = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
+
+class League(models.Model):
+    name = models.CharField(max_length=32)
+    logo = models.ImageField(upload_to='images/leagues/')
+
+class Team(models.Model):
+    name = models.CharField(max_length=32)
+    logo = models.ImageField(upload_to='images/teams/')
+    is_club = models.BooleanField()
+    leagues = models.ManyToManyField(League, through='TeamLeagueSeason', related_name='teams', symmetrical=False)
+    news = models.ManyToManyField(News, related_name='teams')
+
+class TeamLeagueSeason(models.Model):
+    team = models.ForeignKey(Team, related_name='league_seasons', on_delete=models.CASCADE)
+    league = models.ForeignKey(League, related_name='team_seasons', on_delete=models.CASCADE)
+    season = models.CharField(max_length=16)
+
+    games_played = models.IntegerField(default=0)
+    wins = models.IntegerField(default=0)
+    draws = models.IntegerField(default=0)
+    losses = models.IntegerField(default=0)
+    goals_for = models.IntegerField(default=0)
+    goals_against = models.IntegerField(default=0)
+    goal_difference = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = (('team', 'league', 'season'),)
+
+class Player(models.Model):
+    name = models.CharField(max_length=32)
+    age = models.IntegerField()
+    height = models.IntegerField()
+    weight = models.IntegerField()
+    image = models.ImageField(upload_to='images/players/')
+
+
+class Performance(models.Model):
+    player = models.ForeignKey(Player, related_name='performances', on_delete=models.CASCADE)
+    team_league_season = models.ForeignKey(TeamLeagueSeason, related_name='performances', on_delete=models.CASCADE)
+
+    position = models.CharField(max_length=16)
+    appearances = models.IntegerField(default=0)
+    goals = models.IntegerField(default=0)
+    assists = models.IntegerField(default=0)
+    shots = models.IntegerField(default=0)
+    shots_on_target = models.IntegerField(default=0)
+    saves = models.IntegerField(default=0)
+    fouls = models.IntegerField(default=0)
+    yellow_cards = models.IntegerField(default=0)
+    red_cards = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = (('player', 'team_league_season'),)
+
+class Game(models.Model):
+    home_team_league_season = models.ForeignKey(Team, related_name='home_games', on_delete=models.CASCADE)
+    away_team_league_season = models.ForeignKey(Team, related_name='away_games', on_delete=models.CASCADE)
+    league = models.ForeignKey(League, related_name='games', on_delete=models.CASCADE)
+    season = models.CharField(max_length=16)
+
+    home_team_goals = models.IntegerField(default=0)
+    away_team_goals = models.IntegerField(default=0)
+    home_team_fouls = models.IntegerField(default=0)
+    away_team_fouls = models.IntegerField(default=0)
+    home_team_corners = models.IntegerField(default=0)
+    away_team_corners = models.IntegerField(default=0)
+    home_team_substitutions = models.IntegerField(default=0)
+    away_team_substitutions = models.IntegerField(default=0)
+    home_team_possesion = models.IntegerField(default=50, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    away_team_possesion = models.IntegerField(default=50, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    date = models.DateTimeField(auto_now_add=True)
+    is_finished = models.BooleanField(default=False)
+    report = models.TextField()
+
+    class Meta:
+        unique_together = (('home_team_league_season', 'away_team_league_season', 'league', 'season'))

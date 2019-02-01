@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './assets/css/default.css';
 import './navbar.js';
 import Navbar from './navbar.js';
@@ -14,6 +14,7 @@ import League from './league.js';
 import FootballMatch from './footballMatch.js'
 import Team from './team.js'
 import NewsManager from './newsManager';
+import Scores from './scores';
 
 
 class App extends Component {
@@ -33,7 +34,13 @@ class App extends Component {
                 <Navbar isLoggedIn = {this.state.isLoggedIn} currentSport={this.state.currentSport} />
 
                 <Switch>
-                    <Route exact path='' component={NewsManager} />
+                    <Route exact path='/' render={props => (
+                        <Redirect to='/news' />
+                    )} />
+                    <Route path='/news' component={NewsManager} />
+                    <Route exact path='/scores' render={props => (
+                        <div className={'main-container'}><Scores {...props} /></div>
+                    )} />
                 </Switch>
                 
                 <div class="main-container">

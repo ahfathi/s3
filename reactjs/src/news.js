@@ -13,11 +13,12 @@ export default class News extends Component {
             data: {},
             csrf: '',
             comments: [],
+            news_id: this.props.match.params.id,
         }
     }
     componentDidMount() {
         this.fetch_csrf();
-        fetch(window.host + '/api' + this.props.location.pathname).then(response => response.json()).then(res => {
+        fetch(`${window.host}/api/news/${this.state.news_id}/`).then(response => response.json()).then(res => {
             var result = JSON.parse(res);
             if (result.error) {
                 this.setState({error: result.error});
@@ -32,14 +33,14 @@ export default class News extends Component {
         });
     }
     fetch_csrf() {
-        fetch(window.host + '/auth/get_csrf').then(response => response.json()).then(result => {this.setState({csrf: result.csrfmiddlewaretoken})})
+        fetch(`${window.host}/auth/get_csrf/`).then(response => response.json()).then(result => {this.setState({csrf: result.csrfmiddlewaretoken})})
     }
     handleCommentSubmit(event) {
         event.preventDefault();
         var data = new FormData(event.target);
-        data.append('news-id', this.props.match.params.id);
+        data.append('news-id', this.state.news_id);
         data.append('csrfmiddlewaretoken', this.state.csrf);
-        fetch(window.host + '/api/comment/', {
+        fetch(`${window.host}/api/comment/`, {
             method: 'POST',
             cache: 'no-cache',
             body: data,

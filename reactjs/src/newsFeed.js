@@ -18,7 +18,7 @@ export default class NewsFeed extends Component {
     }
 
     fetchNews() {
-        fetch(window.host + '/api/news_feed' + `?page=${this.state.querystring.page}&limit=${this.state.querystring.limit}` + (this.props.interested? '&interested=1': '')).then(response => response.json()).then(result => {this.setState({items: JSON.parse(result), items_loaded: true})});
+        fetch(`${window.host}/api/news_feed/?page=${this.state.querystring.page}&limit=${this.state.querystring.limit}` + (this.props.interested? '&interested=1': '')).then(response => response.json()).then(result => {this.setState({items: JSON.parse(result), items_loaded: true})});
     }
     
     componentDidMount() {

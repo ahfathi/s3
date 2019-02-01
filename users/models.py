@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from football.models import Team
 
 import os
 
@@ -12,4 +13,4 @@ class CustomUser(AbstractUser):
     avatar = models.ImageField(upload_to=get_avatar_path, default='images/avatars/default_user.svg')
     email = models.EmailField(unique=True)
     nickname = models.CharField(max_length=32, default='guest')
-
+    interests = models.ManyToManyField(Team)
