@@ -16,9 +16,25 @@ export default class NewsFeed extends Component {
         this.nextPage = this.nextPage.bind(this);
         this.lastPage = this.lastPage.bind(this);
     }
+    
+    get_querystring() {
+        var querystring = {...this.state.querystring};
+        var result = '?';
+        for (var key in querystring) {
+            result += `${key}=${querystring[key]}&`
+        }
+        return result;
+    }
 
     fetchNews() {
-        fetch(`${window.host}/api/news_feed/?page=${this.state.querystring.page}&limit=${this.state.querystring.limit}` + (this.props.interested? '&interested=1': '')).then(response => response.json()).then(result => {this.setState({items: JSON.parse(result), items_loaded: true})});
+        fetch(`${window.host}/api/news_feed/${this.get_querystring()}` + (this.props.interested? 'interested=1': '')).then(response => response.json()).then(result => {
+            if (result.error) {
+                this.setState({error: result.error, items_loaded: false});
+            }
+            else {
+                this.setState({items: JSON.parse(result), items_loaded: true, error: ''});
+            }
+        });
     }
     
     componentDidMount() {
@@ -26,7 +42,7 @@ export default class NewsFeed extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.location.search !== prevProps.location.search) {
+        if (this.props.location.search !== prevProps.location.search || (this.props.interested != prevProps.interested)) {
             this.fetchNews()
         }
     }

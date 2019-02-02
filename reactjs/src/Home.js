@@ -119,14 +119,6 @@ export default class Home extends Component {
                         </div>
                     )
                 }} />
-                <Route exact path='/leagues/:id' render={(props) => {
-                    return (
-                        <div class="main-container">
-                            <Subnav items={this.state.subnav_items} />
-                            <League {...props}/>
-                        </div>
-                    )
-                }} />
             </Switch>
         )
     }

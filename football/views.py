@@ -20,7 +20,18 @@ class Index(TemplateView):
 def get_news_feed(request):
     page = int(request.GET.get('page', 1))
     limit = int(request.GET.get('limit', 10))
-    news_feed = News.objects.order_by('-date')[(page-1)*limit:page*limit]
+    interested = int(request.GET.get('interested', 0))
+    search = request.GET.get('search')
+    news_feed = News.objects.all()
+    if interested:
+        if request.user.is_authenticated:
+            interested_teams = request.user.interests.values_list('name', flat=True)
+            news_feed = news_feed.filter(tags__text__in=interested_teams)
+        else:
+            return JsonResponse({'error': 'please log in first'})
+    if search is not None:
+        news_feed = news_feed.filter(tags__text=search)
+    news_feed = news_feed.order_by('-date')[(page-1)*limit:page*limit]
     items = []
     for news in news_feed:
         items.append({
@@ -28,7 +39,7 @@ def get_news_feed(request):
             'title': news.title,
             'text': news.preview,
             'image': news.cover.url if news.cover else '',
-            'comments': news.comments_count,
+            'comments': news.comments.count(),
             'views': news.views_count,
         })
 
@@ -39,13 +50,8 @@ def get_news(request, id):
         news = News.objects.get(pk=id)
     except:
         return JsonResponse({'error': 'no such news'})
-    else:
-        comments = NewsComment.objects.filter(news=news).order_by('-date_created')
-
-    result = {'comments': [], 'data': {}}
-    for comment in comments:
-        result['comments'].append({'nickname': comment.user.nickname, 'avatar': comment.user.avatar.url, 'date': comment.date_created.strftime("%Y-%m-%d"), 'content': comment.content})
-    result['data'] = {
+    
+    data = {
         'title': news.title,
         'cover': news.cover.url if news.cover else '',
         'content': news.content,
@@ -55,11 +61,20 @@ def get_news(request, id):
         'username': '',
     }
     if request.user.is_authenticated:
-        result['data']['username'] = request.user.username
+        data['username'] = request.user.username
 
-    
-    return JsonResponse(json.dumps(result), safe=False)
+    news.views_count += 1
+    news.save()
+    return JsonResponse(json.dumps(data), safe=False)
 
+
+def get_comments(request, news_id):
+    comments = NewsComment.objects.filter(news__pk=news_id).order_by('-date_created')
+    data = []
+    for comment in comments:
+        data.append({'nickname': comment.user.nickname, 'avatar': comment.user.avatar.url, 'date': comment.date_created.strftime("%Y-%m-%d"), 'content': comment.content})
+
+    return JsonResponse(json.dumps(data), safe=False)
 
 @login_required
 def comment(request):
@@ -106,14 +121,14 @@ def get_scores(request):
             'away_team_name': game.away_team.name,
             'home_team_logo': game.home_team.logo.url,
             'away_team_logo': game.away_team.logo.url,
-            'home_team_page_url': '#',
-            'away_team_page_url': '#',
+            'home_team_id': game.home_team.pk,
+            'away_team_id': game.away_team.pk,
             'home_team_goals': game.home_team_goals,
             'away_team_goals': game.away_team_goals,
             'is_started': True if game.date < timezone.now() else False,
             'match_date': game.date.strftime("%Y-%m-%d"),
             'match_time': game.date.strftime("%H:%M"),
-            'game_page_url': '#'
+            'game_id': game.pk
         })
         
     return JsonResponse(json.dumps(scores), safe=False)

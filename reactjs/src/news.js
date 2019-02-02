@@ -19,22 +19,36 @@ export default class News extends Component {
     }
     componentDidMount() {
         this.fetch_csrf();
-        fetch(`${window.host}/api/news/${this.state.news_id}/`).then(response => response.json()).then(res => {
-            var result = JSON.parse(res);
+        this.fetch_news();
+        this.fetch_comments();
+    }
+    fetch_csrf() {
+        fetch(`${window.host}/auth/get_csrf/`).then(response => response.json()).then(result => {this.setState({csrf: result.csrfmiddlewaretoken})})
+    }
+    fetch_news() {
+        fetch(`${window.host}/api/news/${this.state.news_id}/`).then(response => response.json()).then(result => {
             if (result.error) {
                 this.setState({error: result.error});
             }
             else {
                 this.setState({
-                    data: result.data,
-                    comments: result.comments,
+                    data: JSON.parse(result),
                     loaded: true
                 });
             }
         });
     }
-    fetch_csrf() {
-        fetch(`${window.host}/auth/get_csrf/`).then(response => response.json()).then(result => {this.setState({csrf: result.csrfmiddlewaretoken})})
+    fetch_comments() {
+        fetch(`${window.host}/api/news/${this.state.news_id}/comments/`).then(response => response.json()).then(result => {
+            if (result.error) {
+                this.setState({error: result.error});
+            }
+            else {
+                this.setState({
+                    comments: JSON.parse(result),
+                });
+            }
+        });
     }
     handleCommentSubmit(event) {
         event.preventDefault();
@@ -45,6 +59,8 @@ export default class News extends Component {
             method: 'POST',
             cache: 'no-cache',
             body: data,
+        }).then(response => {
+            this.fetch_comments();
         });
         this.fetch_csrf();
     }

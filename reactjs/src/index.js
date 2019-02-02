@@ -34,15 +34,27 @@ class App extends Component {
                 <Navbar isLoggedIn = {this.state.isLoggedIn} currentSport={this.state.currentSport} />
 
                 <Switch>
+                    <Route path='/leagues/:id' render={props => (
+                        <div className={'main-container'}>
+                            <League {...props} />
+                        </div>
+                    )} />
+                    <Route path='/teams/:id' render={props => (
+                        <div className={'main-container'}>
+                            <Team {...props} />
+                        </div>
+                    )} />
+                    <Route path='/games/:id' render={props => (
+                        <div className={'main-container'}>
+                            <FootballMatch {...props} />
+                        </div>
+                    )} />
                     <Route path='/' component={Home} />
                 </Switch>
                 
-                <div class="main-container">
-                    {/* <FootballMatch/> */}
-                    {/* <Team/> */}
-                    {/* <League/> */}
-                    {/* <PlayerInformation url={require('./assets/img/MehranAsghari.jpg')} playerName={'مهران اصغری'} age={20} position={'اون پشتا'} weight={71} height={180} team={'پرسپولیس'} nationality={'ایران'} appearanceNo={10} goalNo={2} assistNo = {1} yellowCards={3} redCards={1}/> */}
-                </div>
+                {/* <div className={"main-container"}>
+                    <PlayerInformation url={require('./assets/img/MehranAsghari.jpg')} playerName={'مهران اصغری'} age={20} position={'اون پشتا'} weight={71} height={180} team={'پرسپولیس'} nationality={'ایران'} appearanceNo={10} goalNo={2} assistNo = {1} yellowCards={3} redCards={1}/>
+                </div> */}
             </div>
 
         )

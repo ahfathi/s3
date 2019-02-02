@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './assets/css/navbar.css';
 import ShowMenu from './showMenu.js'
+import {Link} from 'react-router-dom';
 
 class Navbar extends Component {
     constructor(props){
@@ -57,14 +58,14 @@ class Navbar extends Component {
                         </div>
                         <ul id="menu">
                             <li>
-                                <a href="#" >
-                                فوتبال
-                                </a>
+                                <Link to='/' >
+                                    فوتبال
+                                </Link>
                             </li>
                             <li>
-                                <a href="#">
+                                <Link to='basketball'>
                                     بسکتبال
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                         <div className="search">
@@ -90,14 +91,14 @@ class Navbar extends Component {
                 <div className="overlay-menu">
                     <ul id="menu">
                         <li>
-                            <a href="#">
+                            <Link to='/' >
                                 فوتبال
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to='basketball'>
                                 بسکتبال
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
